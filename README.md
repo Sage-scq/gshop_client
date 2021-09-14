@@ -1,5 +1,5 @@
 # shop-client
-
+一个vue电商前台项目
 ## Project setup
 ```
 npm install
