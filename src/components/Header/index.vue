@@ -34,12 +34,14 @@
         </router-link>
       </h1>
       <div class="searchArea">
-        <form action="###" class="searchForm">
+        <!-- 单输入框表单回车会自动提交，需要阻止默认行为 -->
+        <form class="searchForm" @submit.prevent>
           <input
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
             v-model.trim="keyword"
+            @keyup.enter="search"
           />
           <button
             class="sui-btn btn-xlarge btn-danger"
