@@ -12,6 +12,10 @@ import Footer from "./components/Footer";
 export default {
   name: "App",
   components: { Header, Footer },
+  mounted() {
+    // 分发请求获取分类列表的异步函数
+    this.$store.dispatch("getCategoryList");
+  },
 };
 </script>
 
