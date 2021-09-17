@@ -1,12 +1,14 @@
 <template>
-  <div></div>
+  <div>
+    <TypeNav />
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Copy",
+  name: "Search",
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 </style>
