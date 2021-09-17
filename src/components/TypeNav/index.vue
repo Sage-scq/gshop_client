@@ -18,15 +18,9 @@
                 :to="`/search?categoryname=${c1.categoryName}&category1Id=${c1.categoryId}`"
                 >{{ c1.categoryName }}</router-link
               > -->
-                  <a
-                    href="javascript:;"
-                    @click="
-                      $router.push(
-                        `/search?categoryname=${c1.categoryName}&category1Id=${c1.categoryId}`
-                      )
-                    "
-                    >{{ c1.categoryName }}</a
-                  >
+                  <a href="javascript:;" @click="pushToCategory(c1)">{{
+                    c1.categoryName
+                  }}</a>
                 </h3>
                 <div class="item-list clearfix">
                   <div class="subitem">
@@ -40,15 +34,9 @@
                       :to="`/search?categoryname=${c2.categoryName}&category2Id=${c2.categoryId}`"
                       >{{ c2.categoryName }}</router-link
                     > -->
-                        <a
-                          href="javascript:;"
-                          @click="
-                            $router.push(
-                              `/search?categoryname=${c2.categoryName}&category2Id=${c2.categoryId}`
-                            )
-                          "
-                          >{{ c2.categoryName }}</a
-                        >
+                        <a href="javascript:;" @click="pushToCategory(c2)">{{
+                          c2.categoryName
+                        }}</a>
                       </dt>
                       <dd>
                         <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
@@ -56,15 +44,9 @@
                         :to="`/search?categoryname=${c3.categoryName}&category3Id=${c3.categoryId}`"
                         >{{ c3.categoryName }}</router-link
                       > -->
-                          <a
-                            href="javascript:;"
-                            @click="
-                              $router.push(
-                                `/search?categoryname=${c3.categoryName}&category3Id=${c3.categoryId}`
-                              )
-                            "
-                            >{{ c3.categoryName }}</a
-                          >
+                          <a href="javascript:;" @click="pushToCategory(c3)">{{
+                            c3.categoryName
+                          }}</a>
                         </em>
                       </dd>
                     </dl>
@@ -104,12 +86,27 @@ export default {
       currentIndex: -2,
     };
   },
+  mounted() {
+    console.log(this.$route.params);
+  },
   created() {
     if (this.$route.path === "/") {
       this.isShowFirst = true;
     }
   },
   methods: {
+    pushToCategory(cx) {
+      const params = this.$route.params;
+      this.$router.push({
+        name: "search",
+        query: {
+          categoryname: cx.categoryName,
+          category1Id: cx.categoryId,
+        },
+        params,
+      });
+    },
+
     // 注意不能写箭头函数，这个this需要指向vc
     showSubList: throttle(
       function (index) {

@@ -68,6 +68,7 @@ export default {
     search() {
       const location = {
         name: "search",
+        query: this.$route.query, // 携带当前的query参数
       };
       // 判断有数据时携带params参数
       if (this.keyword) {
