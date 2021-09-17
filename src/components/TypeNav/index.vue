@@ -86,9 +86,7 @@ export default {
       currentIndex: -2,
     };
   },
-  mounted() {
-    console.log(this.$route.params);
-  },
+
   created() {
     if (this.$route.path === "/") {
       this.isShowFirst = true;

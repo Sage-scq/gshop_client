@@ -3,12 +3,12 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <div class="swiper-container" ref="swiper">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <img src="./images/banner1.jpg" />
             </div>
-            <!-- <div class="swiper-slide">
+            <div class="swiper-slide">
               <img src="./images/banner2.jpg" />
             </div>
             <div class="swiper-slide">
@@ -16,7 +16,7 @@
             </div>
             <div class="swiper-slide">
               <img src="./images/banner4.jpg" />
-            </div> -->
+            </div>
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
@@ -100,12 +100,40 @@
 </template>
 
 <script>
+import Swiper from "swiper";
 export default {
   name: "ListContainer",
+  mounted() {
+    // swiper对象必须在列表显示后才显示
+    new Swiper(this.$refs.swiper, {
+      direction: "horizontal", // 垂直切换选项
+      loop: true, // 循环模式选项
+      autoplay: {
+        delay: 4000, // 自动轮播时间
+        disableOnInteraction: false, // 用户操作后是否停止轮播
+      },
+      // 如果需要分页器
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+
+      // 如果需要前进后退按钮
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  },
 };
 </script>
 
 <style lang="less" scoped>
+// 轮播图按钮样式
+.swiper-container {
+  --swiper-theme-color: #cf3a2b; /* 设置Swiper风格 */
+  --swiper-navigation-size: 50px; /* 设置按钮大小 */
+}
 .list-container {
   width: 1200px;
   margin: 0 auto;
