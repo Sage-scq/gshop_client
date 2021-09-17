@@ -16,7 +16,19 @@
         <div class="all-sort-list2">
           <div class="item" v-for="c1 in categoryList" :key="c1.categoryId">
             <h3>
-              <a href="">{{ c1.categoryName }}</a>
+              <!-- <router-link
+                :to="`/search?categoryname=${c1.categoryName}&category1Id=${c1.categoryId}`"
+                >{{ c1.categoryName }}</router-link
+              > -->
+              <a
+                href="javascript:;"
+                @click="
+                  $router.push(
+                    `/search?categoryname=${c1.categoryName}&category1Id=${c1.categoryId}`
+                  )
+                "
+                >{{ c1.categoryName }}</a
+              >
             </h3>
             <div class="item-list clearfix">
               <div class="subitem">
@@ -26,11 +38,35 @@
                   :key="c2.categoryId"
                 >
                   <dt>
-                    <a href="">{{ c2.categoryName }}</a>
+                    <!-- <router-link
+                      :to="`/search?categoryname=${c2.categoryName}&category2Id=${c2.categoryId}`"
+                      >{{ c2.categoryName }}</router-link
+                    > -->
+                    <a
+                      href="javascript:;"
+                      @click="
+                        $router.push(
+                          `/search?categoryname=${c2.categoryName}&category2Id=${c2.categoryId}`
+                        )
+                      "
+                      >{{ c2.categoryName }}</a
+                    >
                   </dt>
                   <dd>
                     <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                      <a href="">{{ c3.categoryName }}</a>
+                      <!-- <router-link
+                        :to="`/search?categoryname=${c3.categoryName}&category3Id=${c3.categoryId}`"
+                        >{{ c3.categoryName }}</router-link
+                      > -->
+                      <a
+                        href="javascript:;"
+                        @click="
+                          $router.push(
+                            `/search?categoryname=${c3.categoryName}&category3Id=${c3.categoryId}`
+                          )
+                        "
+                        >{{ c3.categoryName }}</a
+                      >
                     </em>
                   </dd>
                 </dl>

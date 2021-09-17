@@ -3,6 +3,12 @@ import { reqCategoryList } from '@/api'
 const state = {
     categoryList: []
 }
+const mutations = {
+    // 接收保存分类列表
+    RECEIVE_CATEGORY_LIST(state, categoryList) {
+        state.categoryList = categoryList.splice(0, 15);
+    }
+}
 const actions = {
     // 获取三级列表的异步action
     async getCategoryList({ commit }) {
@@ -13,12 +19,6 @@ const actions = {
             const categoryList = result.data;
             commit('RECEIVE_CATEGORY_LIST', categoryList)
         }
-    }
-}
-const mutations = {
-    // 接收保存分类列表
-    RECEIVE_CATEGORY_LIST(state, categoryList) {
-        state.categoryList = categoryList.splice(0, 15);
     }
 }
 const getters = {}
