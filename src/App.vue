@@ -16,7 +16,6 @@ export default {
     // 分发请求获取分类列表的异步函数
     this.$store.dispatch("getCategoryList");
     this.$store.dispatch("getBannerList");
-    this.$store.dispatch("getLikeList");
   },
 };
 </script>

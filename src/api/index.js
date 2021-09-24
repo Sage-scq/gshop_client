@@ -21,6 +21,9 @@ export function reqFloors() {
 export function reqLike() {
     return mockAjax.get('/like')
 }
-// reqLike().then(result => {
+export function reqRank() {
+    return mockAjax.get('/rank')
+}
+// reqRank().then(result => {
 //     console.log(result);
 // })

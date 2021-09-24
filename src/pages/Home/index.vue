@@ -24,7 +24,8 @@ export default {
   mounted() {
     this.$store.dispatch("getRecommendsList");
     this.$store.dispatch("getFloorsList");
-    // this.$store.dispatch("getLikeList");
+    this.$store.dispatch("getLikeList");
+    this.$store.dispatch("getRankList");
   },
   computed: {
     ...mapState({

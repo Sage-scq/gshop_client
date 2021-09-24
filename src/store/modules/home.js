@@ -1,11 +1,12 @@
 // 管理首页数据的vuex子模块
-import { reqCategoryList, reqFloors, reqRecommends, reqBannerList, reqLike } from '@/api'
+import { reqCategoryList, reqFloors, reqRecommends, reqBannerList, reqLike, reqRank } from '@/api'
 const state = {
     categoryList: [],
     bannerList: [],
     recommendsList: [],
     floorsList: [],
-    likeList: []
+    likeList: [],
+    rankList: []
 }
 const mutations = {
     // 接收保存分类列表
@@ -27,6 +28,10 @@ const mutations = {
     // mock喜欢模块
     RECEIVE_LIKE_LIST(state, likeList) {
         state.likeList = likeList
+    },
+    // mock排行模块
+    RECEIVE_RANK_LIST(state, rankList) {
+        state.rankList = rankList
     },
 }
 const actions = {
@@ -72,6 +77,14 @@ const actions = {
         if (result.code === 200) {
             const likeList = result.data;
             commit('RECEIVE_LIKE_LIST', likeList)
+        }
+    },
+    // 获取rank的mock数据
+    async getRankList({ commit }) {
+        const result = await reqRank();
+        if (result.code === 200) {
+            const rankList = result.data;
+            commit('RECEIVE_RANK_LIST', rankList)
         }
     }
 }
