@@ -18,6 +18,9 @@ export function reqRecommends() {
 export function reqFloors() {
     return mockAjax.get('/floors')
 }
-// reqFloors().then(result => {
+export function reqLike() {
+    return mockAjax.get('/like')
+}
+// reqLike().then(result => {
 //     console.log(result);
 // })
