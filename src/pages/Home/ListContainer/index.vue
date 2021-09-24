@@ -5,17 +5,12 @@
         <!--banner轮播-->
         <div class="swiper-container" ref="swiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner2.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner4.jpg" />
+            <div
+              class="swiper-slide"
+              v-for="banner in bannerList"
+              :key="banner.id"
+            >
+              <img :src="banner.imageUrl" />
             </div>
           </div>
           <!-- 如果需要分页器 -->
@@ -101,29 +96,48 @@
 
 <script>
 import Swiper from "swiper";
+import { mapState } from "vuex";
 export default {
   name: "ListContainer",
-  mounted() {
-    // swiper对象必须在列表显示后才显示
-    new Swiper(this.$refs.swiper, {
-      direction: "horizontal", // 垂直切换选项
-      loop: true, // 循环模式选项
-      autoplay: {
-        delay: 4000, // 自动轮播时间
-        disableOnInteraction: false, // 用户操作后是否停止轮播
-      },
-      // 如果需要分页器
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
+  mounted() {},
 
-      // 如果需要前进后退按钮
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
+  watch: {
+    bannerList() {
+      // 判断列表数据已经过来了，需要用到watch,并且数据要显示了！
+      // 此时只是数据变更，界面还未显示
+      // swiper对象必须在列表显示后才显示
+      // 数据变化后并不立刻显示界面，而是先调用watch，异步更新界面
+      // 配合$nextike()，dom更新后执行
+      this.$nextTick(() => {
+        new Swiper(this.$refs.swiper, {
+          direction: "horizontal", // 垂直切换选项
+          loop: true, // 循环模式选项
+          autoplay: {
+            delay: 4000, // 自动轮播时间
+            disableOnInteraction: false, // 用户操作后是否停止轮播
+          },
+          // 如果需要分页器
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+
+          // 如果需要前进后退按钮
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
+      });
+    },
+  },
+  // 获取vuex的数据用于动态轮播
+  computed: {
+    ...mapState({
+      bannerList: (state) => {
+        return state.home.bannerList;
       },
-    });
+    }),
   },
 };
 </script>
