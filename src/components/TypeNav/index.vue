@@ -95,14 +95,28 @@ export default {
   methods: {
     pushToCategory(cx) {
       const params = this.$route.params;
-      this.$router.push({
-        name: "search",
-        query: {
-          categoryname: cx.categoryName,
-          category1Id: cx.categoryId,
-        },
-        params,
-      });
+      if (this.$route.name === "search") {
+        this.$router.replace({
+          name: "search",
+          query: {
+            categoryname: cx.categoryName,
+            category1Id: cx.categoryId,
+          },
+          params,
+        });
+      } else {
+        this.$router.push({
+          name: "search",
+          query: {
+            categoryname: cx.categoryName,
+            category1Id: cx.categoryId,
+          },
+          params,
+        });
+      }
+
+      // 点击后隐藏
+      this.hideFirst();
     },
 
     // 注意不能写箭头函数，这个this需要指向vc

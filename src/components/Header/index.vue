@@ -77,7 +77,12 @@ export default {
         };
       }
       // 注意重复跳转路由的错误 捕获失败，传一个空回调
-      this.$router.push(location);
+      if (this.$route.name === "search") {
+        this.$router.replace(location);
+      } else {
+        this.$router.push(location);
+      }
+      this.keyword = "";
     },
   },
 };

@@ -27,3 +27,7 @@ export function reqRank() {
 // reqRank().then(result => {
 //     console.log(result);
 // })
+// 搜索分类列表
+export function reqSearch(searchParams) {
+    return ajax.post('/list', searchParams)
+}
