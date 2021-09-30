@@ -40,23 +40,49 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li
+                  :class="{ active: orderArr[0] === '1' }"
+                  @click="setOrder('1')"
+                >
+                  <a href="javascript:;"
+                    >综合<i
+                      v-show="orderArr[0] === '1'"
+                      class="iconfont"
+                      :class="orderArr[1] === 'desc' ? 'icon-down' : 'icon-up'"
+                    ></i
+                  ></a>
+                </li>
+                <li
+                  :class="{ active: orderArr[0] === '3' }"
+                  @click="setOrder('3')"
+                >
+                  <a href="javascript:;"
+                    >销量
+                    <i
+                      v-show="orderArr[0] === '3'"
+                      class="iconfont"
+                      :class="orderArr[1] === 'desc' ? 'icon-down' : 'icon-up'"
+                    ></i>
+                  </a>
                 </li>
                 <li>
-                  <a href="#">销量</a>
+                  <a href="javascript:;">新品</a>
                 </li>
                 <li>
-                  <a href="#">新品</a>
+                  <a href="javascript:;">评价 </a>
                 </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li
+                  :class="{ active: orderArr[0] === '2' }"
+                  @click="setOrder('2')"
+                >
+                  <a href="javascript:;"
+                    >价格
+                    <i
+                      v-show="orderArr[0] === '2'"
+                      class="iconfont"
+                      :class="orderArr[1] === 'desc' ? 'icon-down' : 'icon-up'"
+                    ></i>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -97,35 +123,13 @@
               </li>
             </ul>
           </div>
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
+          <Pagination
+            :currentPage="options.pageNo"
+            :total="total"
+            :pageSize="options.pageSize"
+            :showPageNo="5"
+            @currentChange="currentChange"
+          />
         </div>
       </div>
     </div>
@@ -147,9 +151,9 @@ export default {
         keyword: "",
         props: [],
         trademark: "",
-        order: "",
+        order: "1:desc",
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 3,
       },
     };
   },
@@ -158,6 +162,11 @@ export default {
     this.getShopList();
   },
   methods: {
+    // 当前页码发生改变的事件回调
+    currentChange(page) {
+      this.options.pageNo = page;
+      this.getShopList();
+    },
     updatePrams() {
       const { keyword } = this.$route.params;
       const { category1Id, category2Id, category3Id, categoryname } =
@@ -227,13 +236,31 @@ export default {
       this.options.props.splice(index, 1);
       this.getShopList();
     },
+    // 设置排序搜索方式
+    setOrder(orderFlag) {
+      // 得到当前排序项方式
+      let [flag, type] = this.orderArr;
+      if (orderFlag === flag) {
+        type = type === "desc" ? "asc" : "desc";
+      } else {
+        flag = orderFlag;
+        type = "desc";
+      }
+      this.options.order = flag + ":" + type;
+      this.getShopList();
+    },
   },
 
   components: {
     SearchSelector,
   },
+
   computed: {
-    ...mapGetters(["goodsList"]),
+    ...mapGetters(["goodsList", "total"]),
+    // 得到包含当前分类项标识与排序方式的数组
+    orderArr() {
+      return this.options.order.split(":");
+    },
   },
   watch: {
     $route() {
@@ -488,6 +515,7 @@ export default {
       }
 
       .page {
+        margin-top: 100px;
         width: 733px;
         height: 66px;
         overflow: hidden;
