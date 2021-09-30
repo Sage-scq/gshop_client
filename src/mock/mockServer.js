@@ -4,6 +4,7 @@ import recommends from './recommends'
 import floors from './floors'
 import like from './like'
 import rank from './rank'
+// import list from './list'
 
 // 提供今日推荐接口
 Mock.mock('/mock/recommends', { code: 200, data: recommends })
@@ -17,4 +18,6 @@ Mock.mock('/mock/floors', { code: 200, data: floors })
 Mock.mock('/mock/like', { code: 200, data: like })
 // 提供rank 接口
 Mock.mock('/mock/rank', { code: 200, data: rank })
+
+// Mock.mock('/mock/list', { code: 200, data: list })
 

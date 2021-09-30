@@ -123,7 +123,13 @@
               </li>
             </ul>
           </div>
-          <Pagination :currentPage="options.pageNo" />
+          <Pagination
+            :currentPage="options.pageNo"
+            :total="total"
+            :pageSize="options.pageSize"
+            :showPageNo="5"
+            @currentChange="currentChange"
+          />
         </div>
       </div>
     </div>
@@ -147,7 +153,7 @@ export default {
         trademark: "",
         order: "1:desc",
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 3,
       },
     };
   },
@@ -156,6 +162,11 @@ export default {
     this.getShopList();
   },
   methods: {
+    // 当前页码发生改变的事件回调
+    currentChange(page) {
+      this.options.pageNo = page;
+      this.getShopList();
+    },
     updatePrams() {
       const { keyword } = this.$route.params;
       const { category1Id, category2Id, category3Id, categoryname } =
@@ -243,8 +254,9 @@ export default {
   components: {
     SearchSelector,
   },
+
   computed: {
-    ...mapGetters(["goodsList"]),
+    ...mapGetters(["goodsList", "total"]),
     // 得到包含当前分类项标识与排序方式的数组
     orderArr() {
       return this.options.order.split(":");

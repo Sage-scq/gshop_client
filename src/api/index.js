@@ -24,7 +24,7 @@ export function reqLike() {
 export function reqRank() {
     return mockAjax.get('/rank')
 }
-// reqRank().then(result => {
+// reqSearch().then(result => {
 //     console.log(result);
 // })
 // 搜索分类列表

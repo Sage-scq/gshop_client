@@ -1,7 +1,7 @@
 // 管理搜索页面数据的vuex子模块
 import { reqSearch } from '@/api'
 const state = {
-    productList: {}
+    productList: {},
 }
 const mutations = {
     RECIEVE_PRODUCT_LIST(state, productList) {
@@ -9,7 +9,6 @@ const mutations = {
     }
 }
 const actions = {
-
     async getProductsList({ commit }, searchParams) {
         // 不想删除组件中options中的数据所以使用浅拷贝,只拷贝属性不拷贝值
         searchParams = { ...searchParams }
@@ -38,6 +37,9 @@ const getters = {
     attrsList(state) {
         return state.productList.attrsList || []
     },
+    total(state) {
+        return state.productList.total || 0
+    }
 
 }
 export default {
