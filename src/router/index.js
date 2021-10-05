@@ -30,5 +30,9 @@ export default new VueRouter({
     // 模式
     mode: 'history',
     // 路由
-    routes
+    routes,
+    // 跳转顶部
+    scrollBehavior() {
+        return { x: 0, y: 0 }
+    }
 })

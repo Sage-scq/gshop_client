@@ -2,6 +2,7 @@ import Home from '@/pages/Home'
 import Search from '../pages/Search'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
+import Detail from '../pages/detail'
 export default [
     {
         path: '/',
@@ -26,4 +27,12 @@ export default [
         },
         component: Register
     },
+    {
+        path: '/detail/:skuId',
+        meta: {
+            isHideFooter: false
+        },
+        component: Detail
+    },
+
 ]

@@ -24,10 +24,22 @@ export function reqLike() {
 export function reqRank() {
     return mockAjax.get('/rank')
 }
-// reqSearch().then(result => {
-//     console.log(result);
-// })
+
 // 搜索分类列表
 export function reqSearch(searchParams) {
     return ajax.post('/list', searchParams)
 }
+// 获取详情
+export function reqDetail(skuId) {
+    return ajax.get(`/item/${skuId}`)
+}
+// 添加购物车
+export function reqAddOrUpdateCart(skuId, skuNum) {
+    return ajax({
+        url: `/cart/addToCart/${skuId}/${skuNum}`,
+        method: 'post'
+    })
+}
+reqAddOrUpdateCart('6066', '2').then(result => {
+    console.log(result);
+})
