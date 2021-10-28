@@ -3,6 +3,7 @@ import Search from '../pages/Search'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Detail from '../pages/detail'
+import AddCartSuccess from '../pages/AddCartSuccess'
 export default [
     {
         path: '/',
@@ -12,6 +13,10 @@ export default [
         name: 'search',
         path: '/search/:keyword?', // 这个问号就可以解决传空参数报错
         component: Search
+    },
+    {
+        path: '/addcartsuccess',
+        component: AddCartSuccess
     },
     {
         path: '/login',

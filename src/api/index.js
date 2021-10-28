@@ -35,11 +35,12 @@ export function reqDetail(skuId) {
 }
 // 添加购物车
 export function reqAddOrUpdateCart(skuId, skuNum) {
-    return ajax({
-        url: `/cart/addToCart/${skuId}/${skuNum}`,
-        method: 'post'
-    })
+    return ajax.post(`/cart/addToCart/${skuId}/${skuNum}`)
+    // return ajax({
+    //     url: `/cart/addToCart/${skuId}/${skuNum}`,
+    //     method: 'post'
+    // })
 }
-reqAddOrUpdateCart('6066', '2').then(result => {
-    console.log(result);
-})
+// reqAddOrUpdateCart('6066', '2').then(result => {
+//     console.log(result);
+// })

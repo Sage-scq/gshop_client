@@ -383,9 +383,21 @@ export default {
       this.$store.dispatch("getDetailInfo", this.skuId);
     },
     // 购物车回调
-    addShopCart() {
+    async addShopCart() {
       let { skuId, skuNum } = this;
-      this.$store.dispatch("getCartInfo", { skuId, skuNum });
+      try {
+        await this.$store.dispatch("addOrUpdateCart", {
+          skuId,
+          skuNum,
+        });
+        alert("添加成功");
+        // 成功后跳转
+        // 利用路由传参传递简单数据，利用session storage存储复杂数据
+        sessionStorage.setItem("SKUINFO_KEY", JSON.stringify(this.skuInfo));
+        this.$router.push(`/addcartsuccess?skuNum=` + this.skuNum);
+      } catch (error) {
+        alert(error.message);
+      }
     },
   },
   computed: {
