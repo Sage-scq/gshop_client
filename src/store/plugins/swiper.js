@@ -1,3 +1,4 @@
+import Vue from 'vue'
 // 引入swiper的Vue组件库
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 // 引入swiper的模式

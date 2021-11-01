@@ -5,6 +5,7 @@ import TypeNav from "@/components/TypeNav";
 import Pagination from "@/components/Pagination";
 import store from './store'
 import "swiper/css/swiper.css";
+import './store/plugins/swiper'
 // 接入mock
 import './mock/mockServer'
 // 不显示非生产环境提示
@@ -13,6 +14,9 @@ Vue.config.productionTip = false
 Vue.component(TypeNav.name, TypeNav)
 Vue.component(Pagination.name, Pagination)
 new Vue({
+  beforeCreate() {
+    Vue.prototype.$bus = this;
+  },
   render: h => h(App),
   router,
   store

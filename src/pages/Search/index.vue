@@ -155,7 +155,7 @@ export default {
         trademark: "",
         order: "1:desc",
         pageNo: 1,
-        pageSize: 3,
+        pageSize: 10,
       },
     };
   },

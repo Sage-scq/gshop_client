@@ -4,6 +4,7 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Detail from '../pages/detail'
 import AddCartSuccess from '../pages/AddCartSuccess'
+import ShopCart from '../pages/ShopCart'
 export default [
     {
         path: '/',
@@ -17,6 +18,10 @@ export default [
     {
         path: '/addcartsuccess',
         component: AddCartSuccess
+    },
+    {
+        path: '/shopcart',
+        component: ShopCart
     },
     {
         path: '/login',

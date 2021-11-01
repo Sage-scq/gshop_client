@@ -75,29 +75,16 @@
           <div class="choose">
             <div class="chooseArea">
               <div class="choosed"></div>
-              <dl>
-                <dt class="title">选择颜色</dt>
-                <dd changepirce="0" class="active">金色</dd>
-                <dd changepirce="40">银色</dd>
-                <dd changepirce="90">黑色</dd>
-              </dl>
-              <dl>
-                <dt class="title">内存容量</dt>
-                <dd changepirce="0" class="active">16G</dd>
-                <dd changepirce="300">64G</dd>
-                <dd changepirce="900">128G</dd>
-                <dd changepirce="1300">256G</dd>
-              </dl>
-              <dl>
-                <dt class="title">选择版本</dt>
-                <dd changepirce="0" class="active">公开版</dd>
-                <dd changepirce="-1000">移动版</dd>
-              </dl>
-              <dl>
-                <dt class="title">购买方式</dt>
-                <dd changepirce="0" class="active">官方标配</dd>
-                <dd changepirce="-240">优惠移动版</dd>
-                <dd changepirce="-390">电信优惠版</dd>
+              <dl v-for="good in spuSaleAttrList" :key="good.id">
+                <dt class="title">{{ good.saleAttrName }}</dt>
+                <dd
+                  v-for="item in good.spuSaleAttrValueList"
+                  :key="item.id"
+                  :class="{ active: item.isChecked === '1' }"
+                  @click="changeChecked(item, good.spuSaleAttrValueList)"
+                >
+                  {{ item.saleAttrValueName }}
+                </dd>
               </dl>
             </div>
             <div class="cartWrap">
@@ -378,6 +365,13 @@ export default {
     this.getDetailInfo();
   },
   methods: {
+    // 排他处理选中属性
+    changeChecked(item, itemsArr) {
+      itemsArr.forEach((item) => {
+        item.isChecked = "0";
+      });
+      item.isChecked = "1";
+    },
     // 封装请求函数
     getDetailInfo() {
       this.$store.dispatch("getDetailInfo", this.skuId);
@@ -553,6 +547,9 @@ export default {
               }
 
               dd {
+                &:hover {
+                  cursor: pointer;
+                }
                 float: left;
                 margin-right: 5px;
                 color: #666;

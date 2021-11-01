@@ -24,6 +24,11 @@ export default {
   },
   name: "Zoom",
   props: ["imageList"],
+  mounted() {
+    this.$bus.$on("syncDefaultIndex", (index) => {
+      this.defaultIndex = index;
+    });
+  },
   methods: {
     move(e) {
       let mouseX = e.offsetX;

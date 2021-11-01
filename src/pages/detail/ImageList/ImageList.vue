@@ -1,20 +1,43 @@
 <template>
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" v-for="img in imageList" :key="img.id">
-        <img :src="img.imgUrl" />
-      </div>
-    </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  </div>
+  <swiper
+    :options="{
+      slidesPerView: 5,
+      // 如果需要前进后退按钮
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    }"
+  >
+    <swiper-slide v-for="(img, index) in imageList" :key="img.id">
+      <img
+        :src="img.imgUrl"
+        :class="{ active: index === defaultIndex }"
+        @click="changeDefaultIndex(index)"
+      />
+    </swiper-slide>
+    <div class="swiper-button-prev" slot="button-prev"></div>
+    <div class="swiper-button-next" slot="button-next"></div>
+  </swiper>
 </template>
 
 <script>
 // import Swiper from 'swiper'
 export default {
+  data() {
+    return {
+      defaultIndex: 0,
+    };
+  },
   name: "ImageList",
   props: ["imageList"],
+  methods: {
+    changeDefaultIndex(index) {
+      this.defaultIndex = index;
+      // 全剧事件总线传给zoom
+      this.$bus.$emit("syncDefaultIndex", index);
+    },
+  },
 };
 </script>
 
@@ -44,6 +67,7 @@ export default {
       }
 
       &:hover {
+        cursor: pointer;
         border: 2px solid #f60;
         padding: 1px;
       }
