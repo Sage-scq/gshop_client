@@ -41,6 +41,15 @@ export function reqAddOrUpdateCart(skuId, skuNum) {
     //     method: 'post'
     // })
 }
+// 获取购物车列表
+export function reqCartList() {
+    return ajax.get(`/cart/cartList`)
+}
+
+// 测试请求
 // reqAddOrUpdateCart('6066', '2').then(result => {
+//     console.log(result);
+// })
+// reqCartList().then(result => {
 //     console.log(result);
 // })

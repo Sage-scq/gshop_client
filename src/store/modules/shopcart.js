@@ -1,10 +1,15 @@
-import { reqAddOrUpdateCart } from "@/api";
+import { reqAddOrUpdateCart, reqCartList } from "@/api";
 const state = {
+    shopCartList: []
 }
-// 管理detail页面的vuex模块
 
+const mutations = {
+    RECIEVE_SHOPCARTLIST(state, shopCartList) {
+        state.shopCartList = shopCartList
+    }
+}
 const actions = {
-    // 获取detail的异步action
+    // 获取购物车的异步action
     async addOrUpdateCart(context, { skuId, skuNum }) {
         const result = await reqAddOrUpdateCart(skuId, skuNum);
         // if (result.code === 200) {
@@ -19,9 +24,17 @@ const actions = {
             return Promise.reject(new Error('failed'))
         }
     },
+    // 获取购物车列表
+    async getCartList({ commit }) {
+        const result = await reqCartList()
+        if (result.code === 200) {
+            commit('RECIEVE_SHOPCARTLIST', result.data)
+        }
+    }
 }
 
 export default {
     state,
     actions,
+    mutations
 }
