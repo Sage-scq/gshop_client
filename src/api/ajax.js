@@ -2,6 +2,7 @@
 import axios from 'axios'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
+import store from '@/store'
 // 1.配置通用的基础路径和超时
 const service = axios.create({
     baseURL: '/api', //基础路径
@@ -13,7 +14,8 @@ const service = axios.create({
 service.interceptors.request.use((config) => {
     // 2.显示请求进度条 在请求拦截器中做
     Nprogress.start()
-
+    // 修改请求头带临时用户标识
+    config.headers.userTempId = store.state.user.userTempId;
 
     // 必须返回config
     return config // 后面根据返回的config，使用xhr发送请求
