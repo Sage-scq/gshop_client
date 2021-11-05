@@ -1,6 +1,7 @@
 // 管理用户数据的子模块
+import { getUserTempId } from '@/utils/userabout'
 const state = {
-    userInfo: {}
+    userTempId: getUserTempId()
 }
 const mutations = {}
 const actions = {}

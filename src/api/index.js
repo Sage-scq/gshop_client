@@ -46,8 +46,15 @@ export function reqCartList() {
     return ajax.get(`/cart/cartList`)
 }
 
+export function reqUpdateCartChecked(skuId, isChecked) {
+    return ajax({
+        url: `cart/checkCart/${skuId}/${isChecked}`,
+        method: 'get'
+    }
+    )
+}
 // 测试请求
-// reqAddOrUpdateCart('6066', '2').then(result => {
+// reqUpdateCartChecked(4, 0).then(result => {
 //     console.log(result);
 // })
 // reqCartList().then(result => {

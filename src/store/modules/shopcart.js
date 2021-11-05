@@ -1,11 +1,11 @@
-import { reqAddOrUpdateCart, reqCartList } from "@/api";
+import { reqAddOrUpdateCart, reqCartList, reqUpdateCartChecked } from "@/api";
 const state = {
     shopCartList: []
 }
 
 const mutations = {
     RECIEVE_SHOPCARTLIST(state, shopCartList) {
-        state.shopCartList = shopCartList
+        state.shopCartList = shopCartList[0]
     }
 }
 const actions = {
@@ -29,6 +29,15 @@ const actions = {
         const result = await reqCartList()
         if (result.code === 200) {
             commit('RECIEVE_SHOPCARTLIST', result.data)
+        }
+    },
+    // 修改购物车选中状态
+    async updateCartChecked(context, { skuId, isChecked }) {
+        const result = await reqUpdateCartChecked(skuId, isChecked)
+        if (result.code === 200) {
+            return 'ok'
+        } else {
+            return Promise.reject(new Error('failed'))
         }
     }
 }
