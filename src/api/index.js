@@ -53,6 +53,14 @@ export function reqUpdateCartChecked(skuId, isChecked) {
     }
     )
 }
+// 删除购物车
+export function reqDeleteOne(skuId) {
+    return ajax({
+        url: `cart/deleteCart/${skuId}`,
+        method: 'delete'
+    }
+    )
+}
 // 测试请求
 // reqUpdateCartChecked(4, 0).then(result => {
 //     console.log(result);

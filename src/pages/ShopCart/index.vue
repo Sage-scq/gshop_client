@@ -10,7 +10,7 @@
         <div class="cart-th5">小计（元）</div>
         <div class="cart-th6">操作</div>
       </div>
-      <div class="cart-body">
+      <div class="cart-body" v-if="shopCartList">
         <ul class="cart-list" v-for="good in shopCartList" :key="good.id">
           <li class="cart-list-con1">
             <input
@@ -56,21 +56,21 @@
             <span class="sum">{{ good.skuNum * good.skuPrice }}</span>
           </li>
           <li class="cart-list-con7">
-            <a href="#none" class="sindelet">删除</a>
+            <a href="javascript:;" class="sindelet" @click="deleteOne(good)"
+              >删除</a
+            >
             <br />
-            <a href="#none">移到收藏</a>
           </li>
         </ul>
       </div>
     </div>
-    <!-- 解决控制台报错 -->
-    <div class="cart-tool" v-if="shopCartList">
+    <div class="cart-tool">
       <div class="select-all">
         <input class="chooseAll" type="checkbox" v-model="isAllChecked" />
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a href="javascript:;" @click="deleteAll">删除选中的商品</a>
       </div>
       <div class="money-box">
         <div class="chosed">
@@ -100,6 +100,22 @@ export default {
     this.getCartList();
   },
   methods: {
+    async deleteOne(good) {
+      try {
+        await this.$store.dispatch("deleteCart", good.skuId);
+        this.getCartList();
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
+    async deleteAll() {
+      try {
+        await this.$store.dispatch("deleteCartAll");
+        this.getCartList();
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
     getCartList() {
       this.$store.dispatch("getCartList");
     },
@@ -143,7 +159,7 @@ export default {
   computed: {
     ...mapState({
       shopCartList: (state) => {
-        return state.shopcart.shopCartList.cartInfoList;
+        return state.shopcart.shopCartList || [];
       },
     }),
     checkedNum() {
@@ -167,7 +183,16 @@ export default {
       get() {
         return this.shopCartList.every((item) => item.isChecked);
       },
-      set() {},
+      async set(val) {
+        try {
+          await this.$store.dispatch("updateCartCheckedAll", val ? 1 : 0);
+          setTimeout(() => {
+            this.getCartList();
+          }, 200);
+        } catch (error) {
+          console.log(error.message);
+        }
+      },
     },
   },
 };
