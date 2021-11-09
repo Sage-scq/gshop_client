@@ -16,7 +16,8 @@ service.interceptors.request.use((config) => {
     Nprogress.start()
     // 修改请求头带临时用户标识
     config.headers.userTempId = store.state.user.userTempId;
-
+    // 携带token
+    config.headers.token = store.state.user.token;
     // 必须返回config
     return config // 后面根据返回的config，使用xhr发送请求
 })
