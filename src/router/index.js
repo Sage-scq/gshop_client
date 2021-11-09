@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from '@/router/routes'
+import store from '@/store'
 // 使用插件
 Vue.use(VueRouter)
 // 解决路由重复跳转产生的报错 比较重要
@@ -26,7 +27,7 @@ VueRouter.prototype.replace = function (location, onComplete, onAbort) {
     }
 }
 // 暴露路由器对象
-export default new VueRouter({
+const router = new VueRouter({
     // 模式
     mode: 'history',
     // 路由
@@ -36,3 +37,31 @@ export default new VueRouter({
         return { x: 0, y: 0 }
     }
 })
+// 前置路由守卫
+router.beforeEach(async (to, from, next) => {
+    // token校验
+    let token = store.state.user.token
+    if (token) {
+        if (to.path === '/login') {
+            next('/')
+        } else {
+            let hasUserInfo = !!store.state.user.userInfo.nickName
+            if (hasUserInfo) {
+                next()
+            } else {// 已登陆，获取用户信息
+                try {
+                    await store.dispatch('userInfo')
+                    next()
+                } catch (error) {
+                    alert('用户登录已过期')
+                    store.dispatch('resetUserInfo');
+                    next('/login?redirect=' + to.path)
+                }
+            }
+
+        }
+    } else {
+        next()
+    }
+})
+export default router

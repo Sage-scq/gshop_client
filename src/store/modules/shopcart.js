@@ -1,11 +1,13 @@
-import { reqAddOrUpdateCart, reqCartList, reqUpdateCartChecked } from "@/api";
+import { reqAddOrUpdateCart, reqCartList, reqUpdateCartChecked, reqDeleteOne } from "@/api";
 const state = {
-    shopCartList: []
+    shopCartList: [],
 }
 
 const mutations = {
     RECIEVE_SHOPCARTLIST(state, shopCartList) {
-        state.shopCartList = shopCartList[0]
+        if (shopCartList) {
+            state.shopCartList = shopCartList
+        }
     }
 }
 const actions = {
@@ -28,7 +30,12 @@ const actions = {
     async getCartList({ commit }) {
         const result = await reqCartList()
         if (result.code === 200) {
-            commit('RECIEVE_SHOPCARTLIST', result.data)
+            if (result.data[0]) {
+                commit('RECIEVE_SHOPCARTLIST', result.data[0]['cartInfoList'])
+            } else {
+                commit('RECIEVE_SHOPCARTLIST', [])
+
+            }
         }
     },
     // 修改购物车选中状态
@@ -39,6 +46,33 @@ const actions = {
         } else {
             return Promise.reject(new Error('failed'))
         }
+    },
+    // 修改购物车全选
+    async updateCartCheckedAll({ dispatch, state }, isCheckedAll) {
+        let promises = []
+        state.shopCartList.forEach(item => {
+            if (item.isChecked === isCheckedAll) return
+            let promise = dispatch('updateCartChecked', { skuId: item.skuId, isChecked: isCheckedAll })
+            promises.push(promise)
+            return Promise.all(promises)
+        });
+    },
+    async deleteCart(context, skuId) {
+        const result = await reqDeleteOne(skuId)
+        if (result.code === 200) {
+            return 'ok'
+        } else {
+            return Promise.reject(new Error('failed'))
+        }
+    },
+    async deleteCartAll({ dispatch, state }) {
+        let promises = [];
+        state.shopCartList.forEach(item => {
+            if (!item.isChecked) return
+            let promise = dispatch('deleteCart', item.skuId)
+            promises.push(promise)
+        })
+        return Promise.all(promises)
     }
 }
 

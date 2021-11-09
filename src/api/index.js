@@ -53,10 +53,61 @@ export function reqUpdateCartChecked(skuId, isChecked) {
     }
     )
 }
+// 删除购物车
+export function reqDeleteOne(skuId) {
+    return ajax({
+        url: `cart/deleteCart/${skuId}`,
+        method: 'delete'
+    }
+    )
+}
+// 用户注册
+export function reqUserRegister(userInfo) {
+    return ajax({
+        url: '/user/passport/register',
+        method: 'post',
+        data: userInfo
+    })
+}
+// 用户登录 
+export function reqUserLogin(userInfo) {
+    return ajax({
+        url: '/user/passport/login',
+        method: 'post',
+        data: userInfo
+    })
+}
+// 获取验证码
+export function reqCode(phone) {
+    return ajax({
+        url: `user/passport/sendCode/${phone}`,
+        method: 'get'
+    })
+}
+// token校验获得用户信息
+export function reqUserInfo() {
+    return ajax({
+        url: '/user/passport/auth/getUserInfo',
+        method: 'get'
+    })
+}
+// 退出登录
+export function reqUserLogout() {
+    return ajax({
+        url: 'user/passport/logout',
+        method: 'get'
+    })
+}
+export function reqTradeInfo() {
+    return ajax({
+        url: 'order/auth/trade',
+        method: 'get'
+    })
+}
 // 测试请求
 // reqUpdateCartChecked(4, 0).then(result => {
 //     console.log(result);
 // })
-// reqCartList().then(result => {
+// reqTradeInfo().then(result => {
 //     console.log(result);
 // })
