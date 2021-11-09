@@ -98,10 +98,16 @@ export function reqUserLogout() {
         method: 'get'
     })
 }
+export function reqTradeInfo() {
+    return ajax({
+        url: 'order/auth/trade',
+        method: 'get'
+    })
+}
 // 测试请求
 // reqUpdateCartChecked(4, 0).then(result => {
 //     console.log(result);
 // })
-// reqUserInfo().then(result => {
+// reqTradeInfo().then(result => {
 //     console.log(result);
 // })
