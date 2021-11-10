@@ -104,6 +104,26 @@ export function reqTradeInfo() {
         method: 'get'
     })
 }
+export function reqSubmitOrder(tradeNo, tradeData) {
+    return ajax({
+        url: `order/auth/submitOrder?tradeNo=${tradeNo}`,
+        method: 'post',
+        data: tradeData
+    })
+}
+export function reqPayInfo(orderId) {
+    return ajax({
+        url: `payment/weixin/createNative/${orderId}`,
+        method: 'get',
+    })
+}
+export function reqPayStatus(orderId) {
+    return ajax({
+        url: `payment/weixin/queryPayStatus/${orderId}`,
+        method: 'get',
+    })
+}
+
 // 测试请求
 // reqUpdateCartChecked(4, 0).then(result => {
 //     console.log(result);

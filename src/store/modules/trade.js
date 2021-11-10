@@ -22,8 +22,7 @@ const getters = {
     },
     userAddressList(state) {
         return state.tradeInfo.userAddressList || []
-    }
-
+    },
 }
 export default {
     state,
