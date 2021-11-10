@@ -4,9 +4,9 @@
     <div class="content">
       <h5 class="receive">收件人信息</h5>
       <div class="address clearFix">
-        <span class="username selected">张三</span>
+        <span class="username selected" style="cursor: pointer">孙先生</span>
         <p>
-          <span class="s1">北京市昌平区宏福科技园综合楼6层</span>
+          <span class="s1">广州市番禺区市桥大公路88号</span>
           <span class="s2">15010658793</span>
           <span class="s3">默认地址</span>
         </p>
@@ -14,8 +14,10 @@
       <div class="line"></div>
       <h5 class="pay">支付方式</h5>
       <div class="address clearFix">
-        <span class="username selected">在线支付</span>
-        <span class="username" style="margin-left: 5px">货到付款</span>
+        <span class="username selected" style="cursor: pointer">在线支付</span>
+        <span class="username" style="margin-left: 5px; cursor: not-allowed"
+          >货到付款</span
+        >
       </div>
       <div class="line"></div>
       <h5 class="pay">送货清单</h5>
@@ -60,7 +62,7 @@
       <ul>
         <li>
           <b
-            ><i>{{ tradeInfo.totalNum }}</i
+            ><i>{{ totalNum }}</i
             >件商品，总商品金额</b
           >
           <span>¥{{ tradeInfo.totalAmount }}</span>
@@ -77,13 +79,13 @@
       </div>
       <div class="receiveInfo">
         寄送至:
-        <span>北京市昌平区宏福科技园综合楼6层</span>
-        收货人：<span>张三</span>
+        <span>广州市番禺区市桥大公路88号</span>
+        收货人：<span>孙先生</span>
         <span>15010658793</span>
       </div>
     </div>
     <div class="sub clearFix">
-      <a href="##" class="subBtn">提交订单</a>
+      <a href="javascript:;" class="subBtn" @click="submitOrder">提交订单</a>
     </div>
   </div>
 </template>
@@ -95,6 +97,7 @@ export default {
   data() {
     return {
       message: "",
+      orderNo: "",
     };
   },
   mounted() {
@@ -104,12 +107,43 @@ export default {
     getTradeInfo() {
       this.$store.dispatch("tradeInfo");
     },
+    // 提交订单
+    async submitOrder() {
+      let tradeNo = this.tradeInfo.tradeNo;
+      let tradeData = {
+        consignee: "孙先生",
+        consigneeTel: "15010658793",
+        deliveryAddress: "广州市番禺区市桥大公路88号",
+        paymentWay: "ONLINE",
+        orderComment: this.message,
+        orderDetailList: this.detailArrayList,
+      };
+      try {
+        const result = await this.$API.reqSubmitOrder(tradeNo, tradeData);
+        confirm("确定要提交订单吗");
+        if (result.code === 200) {
+          this.orderNo = result.data;
+          this.$router.push("/pay?orderNo=" + this.orderNo);
+        } else if (result.code === 201) {
+          alert(`抱歉，${result.message}`);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
   },
   computed: {
     ...mapGetters(["detailArrayList", "userAddressList"]),
     ...mapState({
       tradeInfo: (state) => state.trade.tradeInfo || [],
     }),
+    totalNum() {
+      return (
+        this.detailArrayList.reduce((prev, cur) => {
+          return cur.skuNum + prev;
+        }, 0) || 0
+      );
+    },
   },
 };
 </script>
