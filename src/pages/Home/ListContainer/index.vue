@@ -30,10 +30,10 @@
           <div class="clearix"></div>
           <ul class="news-list unstyled">
             <li><span class="bold">[特惠]</span>备战开学季 全民半价购数码</li>
-            <li><span class="bold">[公告]</span>备战开学季 全民半价购数码</li>
-            <li><span class="bold">[特惠]</span>备战开学季 全民半价购数码</li>
-            <li><span class="bold">[公告]</span>备战开学季 全民半价购数码</li>
-            <li><span class="bold">[特惠]</span>备战开学季 全民半价购数码</li>
+            <li><span class="bold">[公告]</span>双十一促销活动正式开启</li>
+            <li><span class="bold">[特惠]</span>除甲醛，选空气净化机器人！</li>
+            <li><span class="bold">[公告]</span>加入会员享受更多优惠</li>
+            <li><span class="bold">[特惠]</span>引领智能家居新体验</li>
           </ul>
         </div>
         <ul class="lifeservices">
@@ -194,7 +194,11 @@ export default {
         .news-list {
           padding: 5px 15px;
           line-height: 26px;
-
+          li {
+            &:hover {
+              cursor: pointer;
+            }
+          }
           .bold {
             font-weight: 700;
           }

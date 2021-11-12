@@ -190,6 +190,9 @@ export default {
 
             img {
               width: 100%;
+              &:hover {
+                cursor: pointer;
+              }
             }
           }
 
@@ -222,6 +225,7 @@ export default {
 
                 &:hover {
                   opacity: 0.8;
+                  cursor: pointer;
                 }
               }
             }

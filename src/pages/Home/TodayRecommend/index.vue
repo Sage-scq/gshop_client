@@ -63,6 +63,7 @@ export default {
 
       .banner {
         width: 20.83%;
+        cursor: pointer;
 
         img {
           width: 100%;

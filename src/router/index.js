@@ -61,7 +61,12 @@ router.beforeEach(async (to, from, next) => {
 
         }
     } else {
-        next()
+        // 用户未登录或没有登录过
+        if (to.path.indexOf('/trade') === 0 || to.path.startsWith('/pay') || to.path.startsWith('/center')) {
+            next('/login?redirect=' + to.path)
+        } else {
+            next()
+        }
     }
 })
 export default router

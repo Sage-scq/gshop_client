@@ -13,10 +13,6 @@
           </li>
         </ul>
       </div>
-      <div class="ext">
-        <a href="javascript:void(0);" class="sui-btn">多选</a>
-        <a href="javascript:void(0);"> 更多</a>
-      </div>
     </div>
 
     <div class="type-wrap" v-for="attr in attrsList" :key="attr.attrId">
@@ -128,33 +124,6 @@ export default {
             color: #666;
           }
         }
-      }
-    }
-
-    .ext {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      a {
-        vertical-align: middle;
-      }
-      .sui-btn {
-        display: inline-block;
-        padding: 2px 14px;
-        box-sizing: border-box;
-        margin-bottom: 0;
-        font-size: 12px;
-        line-height: 18px;
-        text-align: center;
-        vertical-align: middle;
-        cursor: pointer;
-        padding: 0 10px;
-        background: #fff;
-        border: 1px solid #d5d5d5;
-      }
-
-      a {
-        color: #666;
       }
     }
   }

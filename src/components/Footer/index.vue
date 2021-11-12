@@ -97,8 +97,6 @@
           </li>
           <li>关于我们</li>
         </ul>
-        <p>地址：北京市昌平区宏福科技园综合楼6层</p>
-        <p>京ICP备19006430号</p>
       </div>
     </div>
   </div>
@@ -113,7 +111,10 @@ export default {
 <style lang="less" scoped>
 .footer {
   background-color: #eaeaea;
-
+  li,
+  h4 {
+    cursor: default;
+  }
   .footer-container {
     width: 1200px;
     margin: 0 auto;

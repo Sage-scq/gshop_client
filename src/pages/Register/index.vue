@@ -6,7 +6,7 @@
         注册新用户
         <span class="go"
           >我有账号，去
-          <router-link to="/login">登陆</router-link>
+          <router-link to="/login">登录</router-link>
         </span>
       </h3>
       <div class="content">
@@ -17,12 +17,10 @@
           v-model="phone"
           @blur="getCode(phone)"
         />
-        <span class="error-msg">错误提示信息</span>
       </div>
       <div class="content">
         <label>验证码:</label>
         <input type="text" placeholder="请输入验证码" v-model="code" />
-        <span class="error-msg">错误提示信息</span>
       </div>
       <div class="content">
         <label>登录密码:</label>
@@ -31,7 +29,6 @@
           placeholder="请输入你的登录密码"
           v-model="password"
         />
-        <span class="error-msg">错误提示信息</span>
       </div>
       <div class="content">
         <label>确认密码:</label>
@@ -40,12 +37,10 @@
           placeholder="请输入确认密码"
           v-model="surePassword"
         />
-        <span class="error-msg">错误提示信息</span>
       </div>
       <div class="controls">
         <input name="m1" type="checkbox" v-model="isChecked" />
         <span>同意协议并注册《尚品汇用户协议》</span>
-        <span class="error-msg">错误提示信息</span>
       </div>
       <div class="btn">
         <button @click="register">完成注册</button>
@@ -64,8 +59,6 @@
         <li>销售联盟</li>
         <li>尚品汇社区</li>
       </ul>
-      <div class="address">地址：北京市昌平区宏福科技园综合楼6层</div>
-      <div class="beian">京ICP备19006430号</div>
     </div>
   </div>
 </template>
