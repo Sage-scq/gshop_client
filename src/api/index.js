@@ -123,7 +123,13 @@ export function reqPayStatus(orderId) {
         method: 'get',
     })
 }
-
+// 请求我的订单列表
+export function reqMyOrder(page, limit) {
+    return ajax({
+        url: `order/auth/${page}/${limit}`,
+        method: 'get',
+    })
+}
 // 测试请求
 // reqUpdateCartChecked(4, 0).then(result => {
 //     console.log(result);

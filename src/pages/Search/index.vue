@@ -112,13 +112,10 @@
                   </div>
                   <div class="operate">
                     <a
-                      href="success-cart.html"
-                      target="_blank"
+                      href="javascript:;"
                       class="sui-btn btn-bordered btn-danger"
+                      @click="addShopCart(item.id)"
                       >加入购物车</a
-                    >
-                    <a href="javascript:void(0);" class="sui-btn btn-bordered"
-                      >收藏</a
                     >
                   </div>
                 </div>
@@ -164,6 +161,30 @@ export default {
     this.getShopList();
   },
   methods: {
+    getDetailInfo(skuId) {
+      this.$store.dispatch("getDetailInfo", skuId);
+    },
+    // 购物车回调
+    async addShopCart(skuId) {
+      let skuNum = "1";
+      try {
+        this.getDetailInfo(skuId);
+        await this.$store.dispatch("addOrUpdateCart", {
+          skuId,
+          skuNum: "1",
+        });
+        alert("添加成功");
+        // 成功后跳转
+        // 利用路由传参传递简单数据，利用session storage存储复杂数据
+        sessionStorage.setItem(
+          "SKUINFO_KEY",
+          JSON.stringify(this.$store.state.detail.detailInfo.skuInfo)
+        );
+        this.$router.push(`/addcartsuccess?skuNum=` + skuNum);
+      } catch (error) {
+        alert(error.message);
+      }
+    },
     // 当前页码发生改变的事件回调
     currentChange(page) {
       this.options.pageNo = page;
